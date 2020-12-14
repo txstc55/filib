@@ -38,6 +38,7 @@
 #include "fi_lib.h"
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
 
 /* ------------------------------------------------------------------- */
 /* --- assignment                                                  --- */
@@ -382,6 +383,35 @@ interval blow(interval x, double eps)
   interval y;
   y = (1.0 + eps) * x - eps * x;
   return (_interval(q_pred(y.INF), q_succ(y.SUP)));
+}
+
+// min max function, same as what BOOST does
+interval max(interval x, interval y)
+{
+  return _interval(std::max(x.INF, y.INF), std::max(x.SUP, y.SUP));
+}
+interval max(interval x, double y)
+{
+  return _interval(std::max(x.INF, y), std::max(x.SUP, y));
+}
+
+interval max(double x, interval y)
+{
+  return _interval(std::max(x, y.INF), std::max(x, y.SUP));
+}
+
+interval min(interval x, interval y)
+{
+  return _interval(std::min(x.INF, y.INF), std::min(x.SUP, y.SUP));
+}
+interval min(interval x, double y)
+{
+  return _interval(std::min(x.INF, y), std::min(x.SUP, y));
+}
+
+interval min(double x, interval y)
+{
+  return _interval(std::min(x, y.INF), std::min(x, y.SUP));
 }
 
 /* ------------------------------------------------------------------- */
